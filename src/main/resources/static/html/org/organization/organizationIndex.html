@@ -27,7 +27,7 @@ width: 100%;
         <i-button type="primary" @click="add">新增</i-button>
         </div>
     </button-group>
-    <i-table :max-height="tableMaxHeight" style="float:right" :columns="listColumns"  :data="queryBean.dataList"></i-table>
+    <i-table :max-height="tableMaxHeight" border style="float:right" :columns="listColumns"  :data="queryBean.dataList"></i-table>
     <page :total="queryBean.totalCount" @on-change="changePage"  page-size="20" show-total style="float:right" />
 </div>
 <script type="text/javascript" src="/js/org/organization/organizationIndex.js"></script>

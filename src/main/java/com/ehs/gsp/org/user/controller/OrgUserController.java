@@ -1,6 +1,7 @@
 package com.ehs.gsp.org.user.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ehs.common.auth.entity.SysRole;
+import com.ehs.common.auth.service.RoleService;
 import com.ehs.common.base.service.BaseCommonService;
 import com.ehs.common.base.utils.JsonUtils;
 import com.ehs.common.oper.bean.PageInfoBean;
@@ -21,6 +24,7 @@ import com.ehs.common.oper.bean.ResultBean;
 import com.ehs.common.organization.entity.OrgUser;
 import com.ehs.gsp.auth.login.bean.LoginInfoBean;
 import com.ehs.gsp.org.user.controller.bean.OrgUserQueryBean;
+import com.ehs.gsp.org.user.controller.bean.UserRolesBean;
 import com.ehs.gsp.org.user.service.OrgUserService;
 
 @Controller
@@ -31,6 +35,9 @@ public class OrgUserController {
 	
 	@Resource
 	private OrgUserService orgUserService;
+	
+	@Resource
+	private RoleService roleService;
 	
 	@RequestMapping(value = "/org/orgUser/getOrgUser")
 	@ResponseBody
@@ -46,6 +53,45 @@ public class OrgUserController {
 		PageInfoBean pib=orgUserService.findUsers(orgUserQueryBean);
 		return (pib==null)?"{}":JsonUtils.toJsonString(pib);
 	}
+	
+	/**
+	 * 获取待选择角色列表
+	 */
+	@RequestMapping(value = "/org/orgUser/findAllRolesByUserKey")
+	@ResponseBody
+	public String findAllRolesByUserKey(HttpServletRequest request, HttpServletResponse response) {
+		List<SysRole> allRoles=(List<SysRole>)baseCommonService.findAll(SysRole.class);
+		if(allRoles==null||allRoles.isEmpty()) {
+			return "[]";
+		}
+		
+		String userKey=request.getParameter("userKey");
+		OrgUser ou=baseCommonService.findByKey(OrgUser.class, userKey);
+		List<SysRole> roles=roleService.findRoleBySysUser(ou.getSysUserKey());
+
+		if(roles==null||roles.isEmpty()) {
+			List roleList=allRoles.stream().filter(
+					s->(!StringUtils.equals(s.getKey(), "sysAdminRoleKey"))
+					&&(!StringUtils.equals(s.getKey(), "normalRoleKey"))
+					).collect(Collectors.toList());
+			return JsonUtils.toJsonString(roleList);
+		}
+
+		return JsonUtils.toJsonString(allRoles.stream().filter(
+				s->roles.stream().allMatch(ss->(!StringUtils.equals(s.getKey(), ss.getKey())))
+				&&(!StringUtils.equals(s.getKey(), "sysAdminRoleKey"))
+				&&(!StringUtils.equals(s.getKey(), "normalRoleKey"))
+				).collect(Collectors.toList()));
+	}
+	
+	@RequestMapping(value = "/org/orgUser/saveUserRoles")
+	@ResponseBody
+	public String saveUserRoles(@RequestBody UserRolesBean userRolesBean, HttpServletRequest request, HttpServletResponse response) {
+		ResultBean resultBean=new ResultBean();
+		orgUserService.saveUserRoles(userRolesBean);
+		return JsonUtils.toJsonString(resultBean.ok("授权成功！",""));
+	}
+	
 	
 	
 	@RequestMapping(value = "/org/orgUser/saveOrgUser")

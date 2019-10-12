@@ -8,12 +8,14 @@ html,body{
 height: 100%;
 width: 100%;
 }
-
+.ivu-tree-title{
+	font-size: 16px;
+}
 </style>
 </head>
 <body>
 <div id="menuPage" style="width: 30%;height: 100%;float: left;display: inline;overflow: auto;border-right: 1px solid #e8eaec;">
-<tree :data="menuTreeData" ref="menuTree" @on-select-change="treeSelect" ></tree>
+<tree :data="menuTreeData" size="large" ref="menuTree"  @on-select-change="treeSelect" ></tree>
 </div>
 <div id="rolePage" style="width:70%;height: 100%;float: left;display: inline;overflow: hidden;">
  	<button-group  style="float:right" >
@@ -21,7 +23,7 @@ width: 100%;
         <i-button type="primary" @click="add">授权</i-button>
         </div>
     </button-group>
-    <i-table :max-height="tableMaxHeight" style="float:right" :columns="listColumns"  :data="queryBean.dataList"></i-table>
+    <i-table :max-height="tableMaxHeight" border style="float:right" :columns="listColumns"  :data="queryBean.dataList"></i-table>
 </div>
 <script type="text/javascript" src="/js/auth/menu/menuIndex.js"></script>
 </body>

@@ -41,7 +41,7 @@ var orgUserPage=new Vue({
                 {
                     title: '操作',
                     key: 'action',
-                    width: 150,
+                    width: 180,
                     align: 'center',
                     render: (h, params) => {
                         return h('div', [
@@ -59,6 +59,20 @@ var orgUserPage=new Vue({
                                     }
                                 }
                             }, '编辑'),
+                            h('Button', {
+                                props: {
+                                    type: 'info',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    click: () => {
+                                        this.addAuth( params.row.key)
+                                    }
+                                }
+                            }, '授权'),
                             h('Button', {
                                 props: {
                                     type: 'error',
@@ -112,6 +126,10 @@ var orgUserPage=new Vue({
     	},
         show (index) {
         	var c={title:'编辑用户',url:'/html/org/orgUser/orgUserEdit.html?key='+index};
+        	GPageModel.info(c);
+        },
+        addAuth:function(userKey){
+           	var c={title:'授权角色',url:'/html/org/orgUser/roleSelectByUser.html?userKey='+userKey,height:300,width:700};
         	GPageModel.info(c);
         },
         add:function(){
