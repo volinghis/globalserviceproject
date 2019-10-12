@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<script src="/js/boot/boot.js" type="text/javascript"></script>
+<style type="text/css">
+html,body{
+height: 100%;
+width: 100%;
+}
+
+</style>
+</head>
+<body>
+<div id="orgPage" style="width: 30%;height: 100%;float: left;display: inline;overflow: auto;border-right: 1px solid #e8eaec;">
+<tree :data="orgListData" ref="orgTree" :render="renderContent"></tree>
+</div>
+<div id="orgUserPage" style="width:70%;height: 100%;float: left;display: inline;overflow: hidden;">
+ 	<button-group style="float:left">
+        <i-input search @on-search="doSearch" enter-button placeholder="输入编号或姓名" />
+    </button-group>
+    <button-group style="float:left;margin-top:10px;margin-left:10px;">
+ <checkbox v-model="single" @on-change="includeChange" size="large">包含下级组织</checkbox>
+    </button-group>
+ 	<button-group  style="float:right" >
+ 		<div ref="buttons">
+        <i-button type="primary" @click="add">新增</i-button>
+        </div>
+    </button-group>
+    <i-table :max-height="tableMaxHeight" style="float:right" :columns="listColumns"  :data="queryBean.dataList"></i-table>
+    <page :total="queryBean.totalCount" @on-change="changePage"  page-size="20" show-total style="float:right" />
+</div>
+<script type="text/javascript" src="/js/org/organization/organizationIndex.js"></script>
+</body>
+</html>

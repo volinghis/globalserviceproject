@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<script src="/js/boot/boot.js" type="text/javascript"></script>
+<style type="text/css">
+html{
+height: 100%;
+width: 100%;
+}
+</style>
+</head>
+<body>
+<div id="pageList" >
+    <i-table :max-height="tableMaxHeight" :columns="listColumns"  :data="listData"></i-table>
+    <div ref="addButton"><i-button @click="add" type="dashed" size="large" long>添加</i-button></div>
+</div>
+<script type="text/javascript" src="/js/org/job/jobList.js"></script>
+</body>
+</html>

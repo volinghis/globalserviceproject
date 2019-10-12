@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<roles targetClass="com.ehs.common.auth.entity.SysRole">
+		<role dataCode="sysAdmin" key="sysAdminRoleKey" name="管理员" remark="管理员"/>
+		<role dataCode="normal" key="normalRoleKey" name="普通用户" remark="普通用户"/>
+	</roles>
+	
+	<users targetClass="com.ehs.common.auth.entity.SysUser">
+		<user key="adminKey" account="admin" password="a66abb5684c45962d887564f08346e8d" state="0" />	
+	</users>
+	
+	<orgs targetClass="com.ehs.common.organization.entity.OrganizationInfo">
+		<org dataCode="rootOrg" key="rootOrg" name="大唐韩城第二发电厂有限公司" >
+		
+		</org>
+	</orgs>
+	
+	<uerRoles targetClass="com.ehs.common.auth.entity.SysUserRole">
+		<userRole key="admin_sysAdminKey" sysUserKey="adminKey" roleKey="sysAdminRoleKey"/>
+	</uerRoles>
+	<menus targetClass="com.ehs.common.auth.entity.SysMenu">
+		<menu dataCode="securityMenusManger" key="securityMenusManger"  icon="md-cog" url="/html/main/mainPage.html"  sort="9999" name="系统管理">
+         <menu dataCode="orgManger" key="orgManger"  icon="md-home"  url="/html/org/organization/organizationIndex.html" name="组织管理" sort="1" parentKey="securityMenusManger"/>  
+         
+         <menu dataCode="authManager" key="authManager"  icon="md-body"   name="权限管理" sort="10" parentKey="securityMenusManger">  
+         	<menu dataCode="roleManager" key="roleManager"  icon="md-book"  url="/html/auth/role/roleList.html"  name="角色管理" sort="1" parentKey="authManager"/>
+         	
+         	<menu dataCode="menuRoleManager" key="menuRoleManager"  icon="md-card" url="/html/auth/menu/menuIndex.html"  name="菜单授权" sort="10" parentKey="authManager"/> 
+         </menu>
+         
+          <!-- 
+           <menu dataCode="systemManager_role" key="systemManager_role"  icon="fa fa-paw"  url="/security-web/action/roleManager/roleManager" name="角色管理" sort="2" parentKey="securityMenusManger"/> 
+           <menu dataCode="systemManager_account" key="systemManager_account"  icon="fa fa-graduation-cap"  url="/security-web/action/accountManager/accountManager" name="账号管理" sort="3" parentKey="securityMenusManger"/> 
+           <menu dataCode="systemManager_menu" key="systemManager_menu"  icon="fa fa-navicon"  url="/security-web/action/menuManager/menuManager" name="导航管理" sort="4" parentKey="securityMenusManger"/> 
+           <menu dataCode="systemManager_log" key="systemManager_log"  icon="fa fa-warning"  url="/security-web/action/loginLog" name="登录日志" sort="5" parentKey="securityMenusManger"/> 
+            
+           <menu dataCode="systemManager_data" key="systemManager_data"  icon="fa fa-book"  url="/security-web/action/dict" sort="6"  name="数据字典" parentKey="securityMenusManger" />
+           -->
+           <menu dataCode="positionList" key="positionList"  icon="md-compass"  url="/html/org/position/positionList.html" sort="20"  name="职位管理" parentKey="securityMenusManger" />
+           <menu dataCode="jobList" key="jobList"  icon="md-locate"  url="/html/org/job/jobList.html" sort="30"  name="职务管理" parentKey="securityMenusManger" />
+           <menu dataCode="jobLevelList" key="jobLevelList"  icon="md-notifications"  url="/html/org/jobLevel/jobLevelList.html" sort="40"  name="职级管理" parentKey="securityMenusManger" />
+           <menu dataCode="loginLogList" key="loginLogList"  icon="md-nuclear"  url="/html/log/loginLog.html" sort="50"  name="登录日志" parentKey="securityMenusManger" />
+        </menu> 
+	</menus>
+</root>

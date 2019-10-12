@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<script src="/js/boot/boot.js" type="text/javascript"></script>
+<link href="/css/index.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+<div id="indexFrame" style="height:100%;width:100%;">
+    <div class="layout">
+        <div class="header-bar" style="padding-right: 0px;background-color: #2d8cf0">
+            <div class="right-wrap" style="margin-right: 0px;">
+            <div>
+						<i-menu ref="modelMenuRef" @on-select="modelSelect" mode="horizontal" theme="primary" :active-name="defaultActiveModel">
+						        <menu-item  v-for="modelMenu in modelMenus"  :name="modelMenu.name">
+						         <Icon :type="modelMenu.icon" ></Icon>
+						            {{modelMenu.label}}
+						        </menu-item>
+						    </i-menu>
+						    </div>
+                <div class="account">
+
+                    <poptip trigger="hover" title="消息列表" placement="bottom-end">
+                        <badge dot>
+                            <Icon type="ios-notifications-outline" color="white" size="26"></Icon>
+                        </badge>
+                        <div style="color:#999;" slot="content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>时间</th>
+                                        <th>内容</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2019-10-26</td>
+                                        <td>消息提示消息提示消息提示消息提示消息提示消息提示消息提示消息提示</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2019-10-25</td>
+                                        <td>消息提示消息提示消息提示消息提示消息提示消息提示消息提示消息提示</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2019-09-28</td>
+                                        <td>消息提示消息提示消息提示消息提示消息提示消息提示消息提示消息提示</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </poptip>
+                </div>
+                
+                <div class="account" >
+                    <dropdown>
+                        <badge>
+                            <avatar style="background-color: #87d068" icon="ios-person" size="18" />
+                        </badge>
+                        <span style="color: white;font-size: 14px">{{currentUserName}}</span>
+                        <icon size="18" type="md-arrow-dropdown" color="white"></icon>
+                        <dropdown-menu slot="list">
+                            <dropdown-item name="message">
+                                <icon type="md-key"></icon><span>修改密码</span>
+                            </dropdown-item>
+                            <dropdown-item name="help"><icon type="md-help"></icon><span>帮助中心</span></dropdown-item>
+                            <dropdown-item name="logout" ><icon type="md-log-out"></icon><span @click="doLogout">退出登录</span></dropdown-item>
+                        </dropdown-menu>
+                    </dropdown>
+                </div>
+            </div>
+        </div>
+        <div class="flex-container" >
+            <div class="layout-menu-left ivu-menu ivu-menu-light ivu-menu-vertical" ref="layoutleft" v-show="!menuCollapsed" style="width: 220px;background-color: #515a6e">
+                <i-menu  theme="dark" width="auto" accordion v-on:on-select="menuSelect">
+                 <submenu :name="item.name" v-for="item in menuData" v-if="(item.children!=null&&item.children.length>0&&item.parentName==defaultActiveModel)">
+                    <div slot="title">
+                    	<Icon :type="item.icon" ></Icon>&nbsp;{{item.label}}
+                    </div>
+                    <menu-item :name="itemSecond.name" v-for="itemSecond in item.children" v-if="(itemSecond.children==null||itemSecond.children.length==0)"><Icon :type="itemSecond.icon" ></Icon>{{itemSecond.label}}</menu-item>
+					  <submenu :name="itemSecond.name" v-else>
+			                    <div slot="title">
+			                    	<Icon :type="itemSecond.icon" ></Icon>&nbsp;{{itemSecond.label}}
+			                    </div>
+			                    <menu-item :name="itemThread.name" v-for="itemThread in itemSecond.children" v-if="(itemThread.children==null||itemThread.children.length==0)"><Icon :type="itemThread.icon" ></Icon>{{itemThread.label}}</menu-item>
+              		  </submenu>
+                </submenu>
+                <menu-item :name="item.name" v-else><Icon :type="item.icon" ></Icon>{{item.label}}</menu-item>
+                </i-menu>
+            </div>
+   
+            <div class="layout-container">
+                <div class="layout-content">
+                    <tabs type="card" v-on:on-tab-remove="removeTab" v-on:on-click="clickTab"  @on-tab-remove="handleTabRemove" animated="true" :value="activeTab">
+                        <tab-pane label="主页" name="portalContentTab">
+                                <iframe frameborder="0" width="100%" :height="frameHeight" scrolling="auto" marginwidth="0" :src="portalContentUrl"></iframe>
+                        </tab-pane>
+                        <template v-for="(item,index) in mainTabs">
+                            <tab-pane :label="item.label" closable  :name="item.name" v-if="item.show">
+                                <iframe frameborder="0" width="100%" :height="frameHeight" scrolling="auto" marginwidth="0" :src="item.url"></iframe>
+                            </tab-pane>
+                        </template>
+					<!-- 
+                        <dropdown slot="extra" placement="top-end" v-on:on-click="closeTab">
+                            <a href="javascript:void(0)">
+                                <Icon type="ios-close-circle-outline" :size="18" /></Icon>
+                            </a>
+                            <dropdown-menu slot="list">
+                                <dropdown-item name="0">关闭所有</dropdown-item>
+                                <dropdown-item name="1">关闭其它</dropdown-item>
+                            </dropdown-menu>
+                        </dropdown>
+ 					-->
+                    </tabs>
+
+                </div>
+                <div class="layout-copy">
+                    2019-2020 &copy; 东恒鑫源软件开发有限公司
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript" src="/js/index.js"></script>
+   
+</body>
+</html>

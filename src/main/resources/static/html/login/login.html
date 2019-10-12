@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<script src="/js/boot/boot.js" type="text/javascript"></script>
+<link href="/css/login/login.css" rel="stylesheet" type="text/css" />
+</head>
+<body style="background-image: url(/images/bgImg.svg);">
+
+
+
+	<div id="app" style="text-align: center">
+		<Card icon="log-in" :bordered="false"> <img
+			src="/images/loginLogo.svg"> <br>
+		大唐韩城第二发电厂设备管理系统<br>
+		<br>
+		<transition name="fade">
+		<p v-show="show" style="color: red">{{message}}</p>
+		</transition>
+		 <i-form ref="loginForm" :model="form" :rules="rules"
+			@keydown.enter.native="handleSubmit"> <form-item 
+			prop="userName"> <i-input size="large"
+			v-model="form.userName" placeholder="请输入用户名"> <span
+			slot="prepend"> <Icon :size="16" type="ios-person"></Icon>
+		</span> </i-input> </form-item> <form-item prop="password"> <i-input size="large"
+			type="password" v-model="form.password" placeholder="请输入密码">
+		<span slot="prepend"> <Icon :size="14" type="md-lock"></Icon>
+		</span> </i-input> </form-item> <form-item> <i-button size="large"
+			@click="handleSubmit" type="primary" :loading="btnLoading" long>登录</i-button> 
+			
+			</form-item>
+			
+			
+			 </i-form>
+	   </Card>
+	</div>
+</body>
+<script type="text/javascript" src="/js/login/login.js"></script>
+</html>

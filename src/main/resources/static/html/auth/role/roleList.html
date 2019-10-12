@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<script src="/js/boot/boot.js" type="text/javascript"></script>
+<style type="text/css">
+html{
+height: 100%;
+width: 100%;
+}
+</style>
+</head>
+<body>
+<div id="pageList" >
+    <button-group  style="float:right;" >
+ 		<div ref="addButton">
+        <i-button type="primary" @click="add" icon="md-add">新增</i-button>
+        </div>
+    </button-group>
+    <div style="float:left">
+        <i-input search @on-search="doSearch" enter-button placeholder="输入编号或名称" />
+    </div>
+    <i-table :max-height="tableMaxHeight" :columns="listColumns"  :data="roles.dataList" style="float:right"></i-table>
+    <page :total="roles.totalCount" @on-change="changePage" :page-size="queryBean.size" show-total style="float:right" />
+</div>
+<script type="text/javascript" src="/js/auth/role/roleList.js"></script>
+</body>
+</html>
