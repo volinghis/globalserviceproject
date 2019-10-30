@@ -92,7 +92,7 @@ public class MenuServiceImpl implements MenuService {
 		List<SysRoleMenu> srmList= menuRoleDao.find(menuKeys.stream().toArray(String[]::new), roleKeys.stream().toArray(String[]::new));
 		if(srmList!=null&&!srmList.isEmpty()) {
 			srmList.stream().forEach(s->{
-				baseCommonService.delete(s);
+				baseCommonService.deleteByKey(s.getClass(),s.getKey());
 			});
 		}
 	}
