@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ehs.common.auth.entity.SysRole;
+import com.ehs.common.auth.interfaces.RequestAuth;
 import com.ehs.common.auth.service.RoleService;
 import com.ehs.common.base.service.BaseCommonService;
 import com.ehs.common.base.utils.JsonUtils;
@@ -39,6 +40,7 @@ public class OrgUserController {
 	@Resource
 	private RoleService roleService;
 	
+	@RequestAuth(menuKeys={"ksksdf_key","asdfasdfasd"})
 	@RequestMapping(value = "/org/orgUser/getOrgUser")
 	@ResponseBody
 	public String getOrgUser(HttpServletRequest request, HttpServletResponse response) {

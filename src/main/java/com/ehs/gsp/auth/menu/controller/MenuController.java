@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ehs.common.auth.config.RoleConfig;
+import com.ehs.common.auth.config.AuthConstants;
 import com.ehs.common.auth.entity.SysMenu;
 import com.ehs.common.auth.entity.SysRole;
 import com.ehs.common.auth.entity.SysRoleMenu;

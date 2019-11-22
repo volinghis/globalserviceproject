@@ -4,12 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.session.data.mongo.config.annotation.web.http.EnableMongoHttpSession;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 
 @SpringBootApplication
-@EnableMongoHttpSession(maxInactiveIntervalInSeconds = com.ehs.common.auth.utils.SessionConstants.MAX_TIME_OUT)
-@EnableCaching
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = com.ehs.common.auth.config.AuthConstants.MAX_TIME_OUT)
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class GspApplication {
 
